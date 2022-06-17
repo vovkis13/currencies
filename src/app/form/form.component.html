@@ -1,0 +1,73 @@
+<form *ngIf="!loading; else spinner" class="form">
+  <div class="currency">
+    <h4 class="primary-color">
+      Currency to sell:<span class="currency-name primary-color">{{ currency1 }}</span>
+    </h4>
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Value</mat-label>
+      <input
+        [disabled]="loading"
+        matInput
+        required
+        name="value1"
+        type="number"
+        [(ngModel)]="value1"
+        (change)="handleValueChange(1)"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Currency</mat-label>
+      <mat-select
+        [disabled]="loading"
+        name="currency1"
+        required
+        [(ngModel)]="currency1"
+        (selectionChange)="handleCurrencyChange($event)"
+      >
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="currency">
+    <h4 class="primary-color">
+      Currency to buy:<span class="currency-name primary-color">{{ currency2 }}</span>
+    </h4>
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Value</mat-label>
+      <input
+        [disabled]="loading"
+        matInput
+        required
+        name="value2"
+        type="number"
+        [(ngModel)]="value2"
+        (change)="handleValueChange(2)"
+      />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Currency</mat-label>
+      <mat-select
+        [disabled]="loading"
+        name="currency2"
+        required
+        [(ngModel)]="currency2"
+        (selectionChange)="handleCurrencyChange($event)"
+      >
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>
+
+<ng-template #spinner>
+  <mat-progress-spinner
+    class="spinner"
+    color="primary"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+</ng-template>

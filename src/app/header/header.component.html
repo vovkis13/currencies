@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+  <header class="header">
+    <div class="header-title-box">
+      <mat-icon>currency_exchange</mat-icon>
+      <h2 class="header-title">currency exchange</h2>
+    </div>
+    <div *ngIf="!loading; else loader" class="header-currencies">
+      <span>Exchange rates:</span>
+      <div class="header-currencies-dollar">
+        <mat-icon>attach_money</mat-icon>
+        <span>{{ usdRatesString }}</span>
+      </div>
+      <div class="header-currencies-euro">
+        <mat-icon>euro</mat-icon>
+        <span>{{ eurRatesString }}</span>
+      </div>
+    </div>
+  </header>
+</mat-toolbar>
+<ng-template #loader><p class="header-loading">Loading...</p></ng-template>

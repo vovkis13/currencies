@@ -1,0 +1,33 @@
+.header {
+  width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: flex-start;
+
+  &-title-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-right: 10rem;
+  }
+  &-title {
+    text-transform: uppercase;
+  }
+
+  &-currencies {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    font-size: 14px;
+    &-dollar,
+    &-euro {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+  }
+  &-loading {
+    text-align: center;
+  }
+}

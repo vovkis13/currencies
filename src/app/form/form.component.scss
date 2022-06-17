@@ -1,0 +1,24 @@
+@import '../theme.scss';
+
+.form {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.currency {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  &-name {
+    margin-left: 0.5rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+  }
+}
+
+.spinner {
+  margin-left: auto;
+  margin-right: auto;
+}
