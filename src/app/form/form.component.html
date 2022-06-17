@@ -1,7 +1,7 @@
 <form *ngIf="!loading; else spinner" class="form">
   <div class="currency">
     <h4 class="primary-color">
-      Currency to sell:<span class="currency-name primary-color">{{ currency1 }}</span>
+      Currency to sell:<span class="currency-name primary-color">{{ currencies[0] }}</span>
     </h4>
     <mat-form-field class="input" appearance="fill">
       <mat-label>Value</mat-label>
@@ -11,8 +11,8 @@
         required
         name="value1"
         type="number"
-        [(ngModel)]="value1"
-        (change)="handleValueChange(1)"
+        [(ngModel)]="values[0]"
+        (change)="handleValueChange(0)"
       />
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -21,8 +21,8 @@
         [disabled]="loading"
         name="currency1"
         required
-        [(ngModel)]="currency1"
-        (selectionChange)="handleCurrencyChange($event)"
+        [(ngModel)]="currencies[0]"
+        (selectionChange)="handleCurrencyChange(0)"
       >
         <mat-option *ngFor="let option of options" [value]="option">
           {{ option }}
@@ -33,7 +33,7 @@
 
   <div class="currency">
     <h4 class="primary-color">
-      Currency to buy:<span class="currency-name primary-color">{{ currency2 }}</span>
+      Currency to buy:<span class="currency-name primary-color">{{ currencies[1] }}</span>
     </h4>
     <mat-form-field class="input" appearance="fill">
       <mat-label>Value</mat-label>
@@ -43,8 +43,8 @@
         required
         name="value2"
         type="number"
-        [(ngModel)]="value2"
-        (change)="handleValueChange(2)"
+        [(ngModel)]="values[1]"
+        (change)="handleValueChange(1)"
       />
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -53,8 +53,8 @@
         [disabled]="loading"
         name="currency2"
         required
-        [(ngModel)]="currency2"
-        (selectionChange)="handleCurrencyChange($event)"
+        [(ngModel)]="currencies[1]"
+        (selectionChange)="handleCurrencyChange(1)"
       >
         <mat-option *ngFor="let option of options" [value]="option">
           {{ option }}

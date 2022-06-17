@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrenciesRates } from '../shared/currencies.service';
+import { GetCurrenciesService } from '../shared/get-currencies';
+import { RoundRateService } from '../shared/round-rate.service';
 
 @Component({
   selector: 'app-header',
@@ -11,19 +12,18 @@ export class HeaderComponent implements OnInit {
   usdRatesString: string = '';
   eurRatesString: string = '';
 
-  constructor(private currenciesService: CurrenciesRates) {}
-
-  private roundRate = (rate: number): number => Math.round(rate * 100) / 100;
+  constructor(private getCurrenciesService: GetCurrenciesService,
+    private roundRateService: RoundRateService) { }
 
   ngOnInit(): void {
-    this.currenciesService.getRates().subscribe((rates) => {
+    this.getCurrenciesService.getRates().subscribe((rates) => {
       this.loading = false;
-      this.usdRatesString = `${this.roundRate(
+      this.usdRatesString = `${this.roundRateService.round(
         rates[0].buy
-      )} / ${this.roundRate(rates[0].sale)}`;
-      this.eurRatesString = `${this.roundRate(
+      )} / ${this.roundRateService.round(rates[0].sale)}`;
+      this.eurRatesString = `${this.roundRateService.round(
         rates[1].buy
-      )} / ${this.roundRate(rates[1].sale)}`;
+      )} / ${this.roundRateService.round(rates[1].sale)}`;
     });
   }
 }
