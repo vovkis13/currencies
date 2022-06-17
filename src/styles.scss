@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;700&display=swap');
-@import '~@angular/material/theming';
 
 @mixin theme-color-grabber($theme) {
   $primary: map-get($theme, primary);

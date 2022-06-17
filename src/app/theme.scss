@@ -1,10 +1,8 @@
 @import '~@angular/material/theming';
 @import '../styles';
-@include mat-core();
 
 $theme-primary: mat-palette($mat-deep-purple);
 $theme-accent:  mat-palette($mat-amber, A200, A100, A400);
 $theme: mat-light-theme($theme-primary, $theme-accent);
 
 @include theme-color-grabber($theme);
-@include angular-material-theme($theme);
