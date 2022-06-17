@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { GetCurrenciesService, Rate } from '../shared/get-currencies';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Rate } from '../shared/get-currencies';
 import { RoundRateService } from '../shared/round-rate.service';
 
 enum Currency {
@@ -20,17 +20,16 @@ interface RatesElement {
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit {
-  loading: boolean = true;
+export class FormComponent {
   options: Currency[] = [Currency.UAH, Currency.USD, Currency.EUR];
   currencies: [Currency, Currency] = [Currency.UAH, Currency.USD];
   values: [number, number] = [0, 0];
   rates: RatesElement[] = [];
 
-  constructor(
-    private getCurrenciesService: GetCurrenciesService,
-    private roundRateService: RoundRateService
-  ) {}
+  constructor(private roundRateService: RoundRateService) {}
+
+  @Input() initialRates: Rate[] = [];
+  @Input() loading: boolean = true;
 
   handleValueChange(changedValueNumber: number): void {
     if (this.values.some((value) => value < 0)) this.values.fill(0);
@@ -46,6 +45,7 @@ export class FormComponent implements OnInit {
       );
     }
   }
+
   handleCurrencyChange(changedCurrencyNumber: number): void {
     if (this.currencies[0] === this.currencies[1])
       this.currencies[1 - changedCurrencyNumber] =
@@ -64,10 +64,8 @@ export class FormComponent implements OnInit {
     this.rates[5] = { pair: 'EURUSD', rate: rates[1].buy / rates[0].sale };
   }
 
-  ngOnInit() {
-    this.getCurrenciesService.getRates().subscribe((rates: Rate[]) => {
-      this.loading = false;
-      this.fillRates(rates);
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['initialRates'].currentValue.length > 0)
+      this.fillRates(this.initialRates);
   }
 }

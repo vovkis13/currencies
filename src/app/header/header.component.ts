@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { GetCurrenciesService } from '../shared/get-currencies';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { Rate } from '../shared/get-currencies';
 import { RoundRateService } from '../shared/round-rate.service';
 
 @Component({
@@ -7,23 +7,23 @@ import { RoundRateService } from '../shared/round-rate.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
-  loading: boolean = true;
+export class HeaderComponent {
   usdRatesString: string = '';
   eurRatesString: string = '';
 
-  constructor(private getCurrenciesService: GetCurrenciesService,
-    private roundRateService: RoundRateService) { }
+  constructor(private roundRateService: RoundRateService) {}
 
-  ngOnInit(): void {
-    this.getCurrenciesService.getRates().subscribe((rates) => {
-      this.loading = false;
+  @Input() initialRates: Rate[] = [];
+  @Input() loading: boolean = true;
+
+  ngOnChanges({ initialRates }: SimpleChanges) {
+    if (initialRates.currentValue.length > 0) {
       this.usdRatesString = `${this.roundRateService.round(
-        rates[0].buy
-      )} / ${this.roundRateService.round(rates[0].sale)}`;
+        this.initialRates[0].buy
+      )} / ${this.roundRateService.round(this.initialRates[0].sale)}`;
       this.eurRatesString = `${this.roundRateService.round(
-        rates[1].buy
-      )} / ${this.roundRateService.round(rates[1].sale)}`;
-    });
+        this.initialRates[1].buy
+      )} / ${this.roundRateService.round(this.initialRates[1].sale)}`;
+    }
   }
 }
